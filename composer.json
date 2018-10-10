@@ -1,0 +1,20 @@
+{
+    "require": {
+        "amphp/websocket": "^0.2.2",
+        "amphp/react-adapter": "^1.1",
+        "react/datagram": "^1.4",
+        "amphp/amp": "^2.0",
+        "react/socket": "^0.8.12",
+        "amphp/artax": "^3.0",
+        "clue/buzz-react": "^2.3",
+        "chrisyue/php-m3u8": "^2.3",
+        "amphp/file": "^0.3.1",
+        "amphp/process": "^0.3.3",
+        "clue/mq-react": "^1.1",
+        "khr/react-curl": "*",
+        "amphp/parallel-functions": "^0.1.2"
+    },
+    "autoload": {
+        "psr-4": { "app\\": "app/" }
+    }
+}
