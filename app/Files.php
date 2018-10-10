@@ -94,7 +94,7 @@ class Files
             public function __construct($filename, $file) {
                 $this->fileName = $filename;
                 $this->file = yield File\open($this->fileName, 'c');
-            $file->seek(0, SEEK_END);
+                $file->seek(0, SEEK_END);
             }
             
             public function setCurrentSequence($sequence) {
