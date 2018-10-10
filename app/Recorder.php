@@ -2,17 +2,13 @@
 
 namespace app;
 
-use Chrisyue\PhpM3u8\M3u8;
-
 class Recorder
 {
     protected $model;
-    protected $curl;
     
-    public function __construct($model, $curl)
+    public function __construct($model)
     {
         $this->model = $model;
-        $this->curl = $curl;
     }
     
     public function capture($streamLink)
@@ -21,7 +17,7 @@ class Recorder
             return false;
         }
         
-        $stream = new Stream($stream, $this->curl, $this->model);
+        $stream = new Stream($stream, $this->model);
         yield from $stream->record();
         
         return $stream;

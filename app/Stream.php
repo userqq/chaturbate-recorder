@@ -2,24 +2,11 @@
 
 namespace app;
 
-use Chrisyue\PhpM3u8\M3u8;
 use Amp\File;
-use function Amp\ByteStream\pipe;
 
 class Stream
-{
-    protected static $client;
-    protected static function getClient() 
-    {
-        if (static::$client === null) {
-            static::$client = new \Amp\Artax\DefaultClient;
-        }
-        
-        return static::$client;
-    }
-    
+{    
     protected $streamLink;
-    protected $curl;
     protected $model;
     
     protected $dq;    
@@ -28,10 +15,9 @@ class Stream
     
     protected $lastSegmentSequence = -1;
     
-    public function __construct($streamLink, $curl, $model)
+    public function __construct($streamLink, $model)
     {
         $this->streamLink = $streamLink;
-        $this->curl = $curl;
         $this->model = $model;
         
         $this->dq = new \Ds\Deque();        

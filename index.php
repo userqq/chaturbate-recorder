@@ -3,7 +3,7 @@
 require 'vendor/autoload.php';
 
 \Amp\Loop::run(function () {   
-    $models = app\Models::fromJson('models.json');
+    $models = app\Model::fromJson('models.json');
     
     foreach ($models as $model) {
         $model->startPoll();

@@ -2,8 +2,24 @@
 
 namespace app;
 
+use Amp\File;
+use function Amp\ByteStream\pipe;
+
 class Files
 {
+    const MAX_FILE_SIZE = 4.5 * 1000 * 1000 * 1000;
+    
+    protected static $client;
+    
+    protected static function getClient() 
+    {
+        if (static::$client === null) {
+            static::$client = new \Amp\Artax\DefaultClient;
+        }
+        
+        return static::$client;
+    }
+    
     protected $model;
     protected $files;
     
@@ -13,13 +29,13 @@ class Files
         $this->files = new \Ds\Deque();
     }
     
-    public function write($segmentUri) 
+    public function write($segmentUri)
     {
-        if ($this->files->count() < 1 || $this->files->last()->tell() > 4.5 * 1000 * 1000 * 1000) {
+        if ($this->files->count() < 1 || $this->files->last()->tell() > static::MAX_FILE_SIZE) {
             $this->files->push($this->getNewFile());
         }
         
-        $file = $this->files->last()->getFile();
+        $file = $this->files->last();
         
         $position = $file->tell();
         
@@ -61,8 +77,10 @@ class Files
             protected $sequencesLength = 0;
             protected $file;
             
-            public function __construct($filename) {
+            public function __construct($filename, $file) {
                 $this->fileName = $filename;
+                $this->file = yield File\open($this->fileName, 'c');
+            $file->seek(0, SEEK_END);
             }
             
             public function setCurrentSequence($sequence) {
@@ -73,8 +91,12 @@ class Files
                 return $this->fileName;
             }
             
+            public function tell() {
+                return $this->file->tell();
+            }
+            
             public function getFile() {
-                
+                return $this->file;
             }
         };
     }

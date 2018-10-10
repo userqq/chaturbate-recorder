@@ -3,11 +3,24 @@
 namespace app;
 
 use Amp\ReactAdapter\ReactAdapter;
+use Chrisyue\PhpM3u8\M3u8;
 use KHR\React\Curl\Curl;
 use KHR\React\Curl\Exception;
 
 class Model 
 {
+    public static function fromJson($path)
+    {
+        $models = json_decode(file_get_contents('models.json'), true);
+        
+        $v = [];
+        foreach ($models as $key => $value) {
+            $v[$key] = new Model($key, $value);
+        }
+        
+        return $v;
+    }    
+    
     protected static $curl;
     
     protected static function getCurl()
@@ -19,7 +32,6 @@ class Model
         return static::$curl;
     }
     
-    protected $active = false;
     protected $model_id;
     protected $album_id;
     protected $recorder;
@@ -69,7 +81,7 @@ class Model
     
     public function getPlayList($streamLink)
     {
-        $body = yield $this->curl->get($streamLink);
+        $body = yield static::getCurl()->get($streamLink);
         
         $m3u8 = new M3u8();
         $m3u8->read($body);
