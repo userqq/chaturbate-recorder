@@ -67,6 +67,20 @@ class Files
         return true;
     }
     
+    public function end()
+    {
+        if ($this->files->count() > 0) {
+            $file = $this->files->last();
+            
+            if ($file->tell() < 1) {
+                $file->close();
+                File\unlink($this->fileName);
+            } else {
+                
+            }
+        }
+    }
+    
     public function getNewFile()
     {
         $filename = '/srv/80.241.220.222/streams/' . $this->model->getId() . '_' . time();

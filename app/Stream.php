@@ -58,12 +58,7 @@ class Stream
         while (true) {
             
             if ((false === $media = (yield from $this->model->getPlayList($this->streamLink))) && $this->dq->count() < 1) {
-                if ($file->tell() < 1) {
-                    $file->close();
-                    File\unlink($this->fileName);
-                } else {
-                    
-                }
+                $this->files->end();
                 
                 return false;
             }        
