@@ -123,7 +123,7 @@ class Model
     {
         $q = static::getUploadQ();
         
-        $q($file, $this);
+        return $q($file, $this);
     }
     
     protected static function upload(string $file, Model $model) : Promise
