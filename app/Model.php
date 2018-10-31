@@ -87,9 +87,9 @@ class Model
                 
                 if (false !== $result = yield from $this->checkPage()) {
                     
-                    echo $this->model_id . ' online ' . PHP_EOL;
+                    echo date('Y-m-d H:i:s') . ' > ' . $this->model_id . ' online ' . PHP_EOL;
                     $r = yield from $this->recorder->capture($result);
-                    echo $this->model_id . ' gone ' . PHP_EOL;
+                    echo date('Y-m-d H:i:s') . ' > ' .  $this->model_id . ' gone ' . PHP_EOL;
                     
                     continue;
                 }
