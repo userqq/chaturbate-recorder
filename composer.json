@@ -12,7 +12,9 @@
         "amphp/process": "^0.3.3",
         "clue/mq-react": "^1.1",
         "khr/react-curl": "*",
-        "amphp/parallel-functions": "^0.1.2"
+        "amphp/parallel-functions": "^0.1.2",
+        "react/promise-timer": "^1.5",
+        "vlucas/phpdotenv": "^2.5"
     },
     "autoload": {
         "psr-4": { "app\\": "app/" }
