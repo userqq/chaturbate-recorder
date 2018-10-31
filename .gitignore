@@ -1,0 +1,5 @@
+/.env
+/composer.lock
+/_revisions.zip
+/background.log
+/vendor
